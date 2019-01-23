@@ -24,6 +24,8 @@ export class AppComponent implements OnInit{
 
   createNewErrors : any;
 
+  selectedTask : any;
+
   //constructor with service injection, to use its variables and methods
   constructor(private _httpService: HttpService){}
 
@@ -69,6 +71,10 @@ export class AppComponent implements OnInit{
     });
     //set showID to true, showing the div
     this.showID = true;
+  }
+
+  taskToShow(task){
+    this.selectedTask = task;
   }
 
   onShowEditForm(){

@@ -24,6 +24,9 @@
 
 <hr>
 
+<app-details *ngIf="selectedTask" [taskToShow]="selectedTask"></app-details>
+<hr>
+
 <div *ngIf="showID">
   <h3>Showing details</h3>
   <h4>Title: {{oneTask.title}}</h4>
@@ -54,6 +57,8 @@
     <li *ngFor="let task of tasks">
       <h4>Title: {{task.title}}</h4>
       <button (click)="onButtonClickID(task._id)">Show</button>
+
+      <button (click)="taskToShow(task)">Test details component</button>
 
     </li>
   </ul>
