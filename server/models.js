@@ -10,8 +10,8 @@ mongoose.connect('mongodb://localhost:27017/restfultaskapidb', (err)=>{
 
 //create new TaskSchema table
 var TaskSchema = new mongoose.Schema({
-    title: {type:String},
-    description: {type:String, default: ""},
+    title: {type:String, required:[true, "Please enter a Title."]},
+    description: {type:String, required:[true, "Please enter a description."]},
     completed: {type:Boolean, default: false},
     //timestamp for createdat and updatedat
 }, {timestamps:true})

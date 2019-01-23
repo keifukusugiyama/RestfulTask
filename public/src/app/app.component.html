@@ -3,19 +3,61 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+<div *ngIf="createNewErrors">
+    <p *ngIf="createNewErrors.errors.title" style="color:red">{{createNewErrors.errors.title.message}}</p>
+    <p *ngIf="createNewErrors.errors.description" style="color:red">{{createNewErrors.errors.description.message}}</p>
+</div>
+
+<form>
+  <label> Title:  
+    <input type="text" name="newTask.title" [(ngModel)]="newTask.title" />
+  </label>
+  <label> Description: 
+    <input type="text" name="newTask.description" [(ngModel)]="newTask.description" />
+  </label>
+  <br>
+  <input type="submit" value="Create Task" (click)="onSubmitNew()"/>
+</form>
+
+<hr>
+
+<div *ngIf="showID">
+  <h3>Showing details</h3>
+  <h4>Title: {{oneTask.title}}</h4>
+  <p>Details: {{oneTask.description}}</p>
+  <p>Completed? {{oneTask.completed}}</p>
+  <button (click)="onShowEditForm()">EDIT</button>
+  <br>
+  <br>
+  <form *ngIf="showEdit">
+    <label> Title:  
+      <input type="text" name="oneTask.title" [(ngModel)]="oneTask.title" />
+    </label>
+    <label> Description: 
+      <input type="text" name="oneTask.description" [(ngModel)]="oneTask.description" />
+    </label>
+    <input type="submit" value="Send Edit" (click)="onSubmitEdit()"/>
+  </form>
+  <br>
+  <button (click)="onButtonDelete(oneTask._id)">DELETE</button>
+</div>
+
+<hr>
+<button (click)="onButtonClickAll()">Get All Tasks</button>
+
+<div *ngIf="tasks[0]">
+  <h2>All the tasks: </h2>
+  <ul>
+    <li *ngFor="let task of tasks">
+      <h4>Title: {{task.title}}</h4>
+      <button (click)="onButtonClickID(task._id)">Show</button>
+
+    </li>
+  </ul>
+</div>
+
 
 <router-outlet></router-outlet>

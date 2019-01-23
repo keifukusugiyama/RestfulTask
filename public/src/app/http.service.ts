@@ -1,27 +1,36 @@
 import { Injectable } from '@angular/core';
+//import httpclient so that http request can be used
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class HttpService {
+  //constructo with httpclient injection, so that http request can be used
   constructor(private _http: HttpClient) {
-    this.getTasks();
-    this.getTaskByID();
   }
 
   getTasks(){
-    // our http response is an Observable, store it in a variable
-    let tempObservable = this._http.get('/api/tasks');
-    // subscribe to the Observable and provide the code we would like to do with our data from the response
-    tempObservable.subscribe(data => console.log("Got our tasks!", data));
+    //run http get request to /api/tasks (express routes.js and controller.js) and return to caller
+    return this._http.get('/api/tasks');
   }
 
-  getTaskByID(){
-    // our http response is an Observable, store it in a variable
-    let tempObservable = this._http.get('/api/tasks/5c3f97a0d7140a2cc0bc8e65');
-    // subscribe to the Observable and provide the code we would like to do with our data from the response
-    tempObservable.subscribe(data => console.log("Got the task 5c3f97a0d7140a2cc0bc8e65", data));
+  getTaskByID(id: String){
+    //run http get request to /api/tasks/id with the passed in id parameter, goes to express routes.js and controller.js and return to caller
+    return this._http.get(`/api/tasks/${id}`);
+  }
+
+  addTask(newtask){
+    return this._http.post('/api/tasks', newtask);
+  }
+
+  updateTaskByID(id: String, oneTask){
+    return this._http.put(`/api/tasks/${id}`, oneTask);
+  }
+
+  deleteTaskByID(id: String){
+    return this._http.delete(`/api/tasks/${id}`);
   }
 
 }

@@ -21,7 +21,7 @@ module.exports = {
         //if successful, respond with json file of result
         .then(result => res.json( result))
         //if there's error, respond with json file of error
-        .catch(err =>res.json({message: "Error looking up", error: err}))
+        .catch(err => res.json(err))
     },
 
     //post /tasks 
@@ -29,9 +29,9 @@ module.exports = {
         //create new Task with returned json file on body
         Task.create(req.body)
         //if successful, respond with json file with newly created Task
-        .then(newTask => res.json({data: newTask}))
+        .then(results => res.json(results))
         //if there's error, respond with json file of error
-        .catch(err =>res.json({message: "Error creating", error: err}))
+        .catch(err => res.json(err))
     },
 
     //put /tasks/:id 
@@ -39,9 +39,9 @@ module.exports = {
         //find Task by id given on the route, update with json file on body
         Task.findByIdAndUpdate(req.params.id, req.body)
         //if successful, respond with json file with the updating Task
-        .then(results => res.json({message: "Update successful", data: results}))
+        .then(results => res.json(results))
         //if there's error, respond with json file of error
-        .catch(err => res.json({message: "Error updating", error: err}))
+        .catch(err => res.json(err))
     },
 
     //delete /tasks/:id 
@@ -49,9 +49,9 @@ module.exports = {
         //find Task by id given on the route, delete it
         Task.findByIdAndDelete(req.params.id)
         //if successful, respond with json file with the deleted Task
-        .then(result => res.json({message: "Deleted", data: result}))
+        .then(results => res.json(results))
         //if there's error, respond with json file of error
-        .catch(err => res.json({message: "Error deleting", error: err}))
+        .catch(err => res.json(err))
     }
 
 }
